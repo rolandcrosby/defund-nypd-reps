@@ -64,6 +64,8 @@ async function getSpreadsheetData() {
           .includes("http")
       ) {
         data[district].statements = sheet.getCell(r, c).value.toString().match(/\bhttps?[^\s]+/g);
+      } else if (headers[c].toLowerCase().startsWith("when") || headers[c].toLowerCase().includes("cop $")) {
+        data[district].fields.push([headers[c], sheet.getCell(r, c).formattedValue]);
       } else {
         data[district].fields.push([headers[c], sheet.getCell(r, c).value]);
       }

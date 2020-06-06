@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="Find your council member's position on defunding the NYPD" />
+
+    <title>Find your council member's position on #DefundtheNYPD</title>
+
+    <link
+      id="favicon"
+      rel="icon"
+      href="https://glitch.com/edit/favicon-app.ico"
+      type="image/x-icon"
+    />
+    <link rel="stylesheet" href="/style.css" />
+    <script
+      type="text/javascript"
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCvh0WwGL5m3H0ehIFdrDJjoqRbrja8MW4&libraries=places"
+    ></script>
+
+    <script src="/script.js" defer></script>
+  </head>
+  <body>
+    <main>
+      <h2>Where does your city council member stand on #DefundtheNYPD?</h2>
+
+      <form>
+        <label>
+          Home Address
+          <input
+            name="address"
+            id="address-field"
+            type="text"
+            maxlength="100"
+            required
+            placeholder="69-69 69th St, Ridgewood, NY 11385"
+          />
+        </label>
+        <label>Or, select your district:
+          <select name="district" id="district-selector">
+            <option disabled selected></option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="6">6</option>
+            <option value="7">7</option>
+            <option value="8">8</option>
+            <option value="9">9</option>
+            <option value="10">10</option>
+            <option value="11">11</option>
+            <option value="12">12</option>
+            <option value="13">13</option>
+            <option value="14">14</option>
+            <option value="15">15</option>
+            <option value="16">16</option>
+            <option value="17">17</option>
+            <option value="18">18</option>
+            <option value="19">19</option>
+            <option value="20">20</option>
+            <option value="21">21</option>
+            <option value="22">22</option>
+            <option value="23">23</option>
+            <option value="24">24</option>
+            <option value="25">25</option>
+            <option value="26">26</option>
+            <option value="27">27</option>
+            <option value="28">28</option>
+            <option value="29">29</option>
+            <option value="30">30</option>
+            <option value="31">31</option>
+            <option value="32">32</option>
+            <option value="33">33</option>
+            <option value="34">34</option>
+            <option value="35">35</option>
+            <option value="36">36</option>
+            <option value="37">37</option>
+            <option value="38">38</option>
+            <option value="39">39</option>
+            <option value="40">40</option>
+            <option value="41">41</option>
+            <option value="42">42</option>
+            <option value="43">43</option>
+            <option value="44">44</option>
+            <option value="45">45</option>
+            <option value="46">46</option>
+            <option value="47">47</option>
+            <option value="48">48</option>
+            <option value="49">49</option>
+            <option value="50">50</option>
+            <option value="51">51</option>
+          </select>
+        </label>
+      </form>
+
+      <section>
+        <div id="result"></div>
+      </section>
+    </main>
+
+    <footer>
+      by <a href="https://glitch.com/@rolandcrosby">@rolandcrosby</a> • data
+      from
+      <a
+        href="https://docs.google.com/spreadsheets/d/18pWRSu58DpENABkYUJlZw1ltCPZft7KJc6lFaOZK8-s/view"
+        >this spreadsheet</a
+      >, Google, and
+      <a href="https://developer.cityofnewyork.us/api/geoclient-api">NYC</a>
+      • see also
+      <a href="http://defund-nypd.glitch.me/">defund-nypd.glitch.me</a>
+    </footer>
+
+    <!-- include the Glitch button to show what the webpage is about and
+          to make it easier for folks to view source and remix -->
+    <div class="glitchButton" style="position:fixed;top:2em;right:20px;"></div>
+    <script src="https://button.glitch.me/button.js" defer></script>
+  </body>
+</html>

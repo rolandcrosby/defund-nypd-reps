@@ -19,6 +19,8 @@ google.maps.event.addListener(autocomplete, "place_changed", async function() {
   geocode();
 });
 
+document.forms[0].onsubmit = function(e) {e.preventDefault();}
+
 document.getElementById("district-selector").onchange = async function(e) {
   district = parseInt(e.target.value, 10);
   document.getElementById("address-field").value = "";
@@ -26,7 +28,7 @@ document.getElementById("district-selector").onchange = async function(e) {
 };
 
 async function geocode() {
-  if (!autocomplete.getPlace()) {
+  if (!autocomplete.getPlace() || !autocomplete.getPlace().address_components) {
     return;
   }
   status("Loading…");

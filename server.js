@@ -25,25 +25,47 @@ async function getSpreadsheetData() {
     headers.push(sheet.getCell(1, c).value);
   }
   for (let r = 2; r < sheet.rowCount; r++) {
-    const district = sheet.getCell(r, 0).value
+    const district = sheet.getCell(r, 0).value;
     if (typeof district !== "number") {
       continue;
     }
-    const name = sheet.getCell(r, 1).value
+    const name = sheet.getCell(r, 1).value;
     if (name === "Vacant") {
       data[district][name] = "Vacant";
       continue;
     }
-    data[district] = {fields: [], phones: {}}
+    data[district] = { fields: [], phones: {}, statements: [] };
     for (let c = 0; c < sheet.columnCount; c++) {
       if (["district", "name", "borough"].includes(headers[c].toLowerCase())) {
         data[district][headers[c].toLowerCase()] = sheet.getCell(r, c).value;
-      } else if (headers[c].toLowerCase().includes("phone") && sheet.getCell(r, c).value) {
-        data[district].phones[headers[c]] = sheet.getCell(r, c).value.toString().trim().split(/[ \n]+/g);
-      } else if (headers[c].toLowerCase() == "email" && sheet.getCell(r, c).value) {
-        data[district]["email"] = sheet.getCell(r, c).value.toString().split(/[ \n]+/g);
+      } else if (
+        headers[c].toLowerCase().includes("phone") &&
+        sheet.getCell(r, c).value
+      ) {
+        data[district].phones[headers[c]] = sheet
+          .getCell(r, c)
+          .value.toString()
+          .trim()
+          .split(/[ \n]+/g);
+      } else if (
+        headers[c].toLowerCase() == "email" &&
+        sheet.getCell(r, c).value
+      ) {
+        data[district]["email"] = sheet
+          .getCell(r, c)
+          .value.toString()
+          .split(/[ \n]+/g);
+      } else if (
+        headers[c].toLowerCase().includes("public statement") &&
+        sheet.getCell(r, c).value &&
+        sheet
+          .getCell(r, c)
+          .value.toString()
+          .includes("http")
+      ) {
+        data[district].statements = sheet.getCell(r, c).value.toString().match(/\bhttps?[^\s]+/g);
       } else {
-        data[district].fields.push([headers[c], sheet.getCell(r, c).value])
+        data[district].fields.push([headers[c], sheet.getCell(r, c).value]);
       }
     }
   }
@@ -86,4 +108,3 @@ app.get("/geoclient-proxy", async (request, response) => {
 const listener = app.listen(process.env.PORT, () => {
   console.log("Your app is listening on port " + listener.address().port);
 });
-

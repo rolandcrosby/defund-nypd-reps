@@ -19,7 +19,9 @@ google.maps.event.addListener(autocomplete, "place_changed", async function() {
   geocode();
 });
 
-document.forms[0].onsubmit = function(e) {e.preventDefault();}
+document.forms[0].onsubmit = function(e) {
+  e.preventDefault();
+};
 
 document.getElementById("district-selector").onchange = async function(e) {
   district = parseInt(e.target.value, 10);
@@ -72,9 +74,12 @@ async function render(district) {
   }
   const info = sheetData.byDistrict[district];
   if (info.name === "Vacant") {
-    document.querySelector("#result").outerHTML = `<div id="result">The council seat in district ${district} is currently vacant.</div>`;
+    document.querySelector(
+      "#result"
+    ).outerHTML = `<div id="result">The council seat in district ${district} is currently vacant.</div>`;
     return;
   }
+  const statementData = makeStatements(info.statements);
   document.querySelector("#result").outerHTML = `<div id="result">
     <div class="bio">
     <div class="img"><img src="https://raw.githubusercontent.com/NewYorkCityCouncil/districts/master/thumbnails/district-${escape(
@@ -86,21 +91,53 @@ async function render(district) {
     <p><a href="https://council.nyc.gov/district-${escape(
       info.district
     )}/">Council Website</a></p>
-    ${Object.entries(info.phones).map(
-      p =>
-        `<p>${escape(p[0])}: ${p[1]
-          .map(ph => `<a href="tel:${escape(ph)}">${escape(ph)}</a>`)
-          .join(", ")}</p>`
-    ).join("")}
+    ${Object.entries(info.phones)
+      .map(
+        p =>
+          `<p>${escape(p[0])}: ${p[1]
+            .map(ph => `<a href="tel:${escape(ph)}">${escape(ph)}</a>`)
+            .join(", ")}</p>`
+      )
+      .join("")}
     <p><a href="mailto:${escape(info.email.join(","))}">Email</a>
     </div>
     </div>
     <dl>
     ${info.fields
+      .filter(f => f[0].match(/^\d\./))
       .map(f => `<dt>${escape(f[0])}</dt><dd>${escape(f[1])}</dd>`)
       .join("")}
     </dl>
+  ${statementData.html}
   </div>`;
+  if (statementData.loaders.length > 0) {
+    statementData.loaders.forEach(f => window.setTimeout(f, 100));
+  }
+}
+
+function makeStatements(statements) {
+  const out = { html: "", loaders: [] };
+  if (statements.length == 0) {
+    return out;
+  }
+  out.html = `<h3>Public Statements</h3>`;
+  statements.forEach(s => {
+    const twitterMatch = s.match(
+      /^https:\/\/(?:[A-z0-9-]*\.)?twitter.com\/[A-z0-9_]+\/status\/([0-9]+)/
+    );
+    if (twitterMatch) {
+      out.html += `<div class="tweet" id="tweet${twitterMatch[1]}"></div>`;
+      out.loaders.push(function() {
+        twttr.widgets.createTweet(
+          twitterMatch[1],
+          document.getElementById(`tweet${twitterMatch[1]}`)
+        );
+      });
+    } else {
+      out.html += `<p><a href="${escape(s)}">${escape(s)}</a></p>`;
+    }
+  });
+  return out;
 }
 
 function escape(text) {
@@ -113,4 +150,3 @@ function escape(text) {
     .replace(/</g, "&lt;")
     .replace(/>/g, "&gt;");
 }
-

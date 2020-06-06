@@ -109,6 +109,12 @@ async function render(district) {
       .join("")}
     </dl>
   ${statementData.html}
+  <details><summary>More Information</summary>
+    ${info.fields
+      .filter(f => !f[0].match(/^\d\./))
+      .map(f => `<dt>${escape(f[0])}</dt><dd>${escape(f[1])}</dd>`)
+      .join("")}
+  </details>
   </div>`;
   if (statementData.loaders.length > 0) {
     statementData.loaders.forEach(f => window.setTimeout(f, 100));

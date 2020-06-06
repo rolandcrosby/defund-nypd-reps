@@ -91,6 +91,10 @@ app.get("/", (request, response) => {
   response.sendFile(__dirname + "/views/index.html");
 });
 
+app.get("/district/:district", (request, response) => {
+  response.sendFile(__dirname + "/views/index.html");
+});
+
 app.get("/sheet", async (request, response) => {
   response.json(await getSpreadsheetData());
 });

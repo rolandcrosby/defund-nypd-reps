@@ -24,10 +24,26 @@ document.forms[0].onsubmit = function(e) {
 };
 
 document.getElementById("district-selector").onchange = async function(e) {
-  district = parseInt(e.target.value, 10);
+  setDistrict(parseInt(e.target.value, 10));
   document.getElementById("address-field").value = "";
   await render(district);
 };
+
+const parts = window.location.pathname.split("/");
+if (parts.length >= 3 && parts[1] === "district") {
+  const d = parseInt(parts[2])
+  if (!isNaN(d) && d > 0 && d <= 51) {
+    setDistrict(d)
+    document.getElementById("address-field").value = "";
+    render(district);
+  }
+}
+
+function setDistrict(d) {
+  district = d;
+  document.getElementById("district-selector").value = district;
+  history.replaceState(d, `/district/${d}`, `/district/${d}`);
+}
 
 async function geocode() {
   if (!autocomplete.getPlace() || !autocomplete.getPlace().address_components) {
@@ -52,7 +68,7 @@ async function geocode() {
   );
   const responseJSON = await response.json();
   if (responseJSON.address && responseJSON.address.cityCouncilDistrict) {
-    district = parseInt(responseJSON.address.cityCouncilDistrict, 10);
+    setDistrict(parseInt(responseJSON.address.cityCouncilDistrict, 10));
   }
   if (!district) {
     status("Couldn’t find your district");

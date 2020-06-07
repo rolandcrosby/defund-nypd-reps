@@ -64,9 +64,8 @@ function setDistrict(d) {
   document.getElementById("district-selector").value = district;
   history.replaceState(d, `/district/${d}`, `/district/${d}`);
 
-  console.log(mapDistricts)
+  // Update map style/color
   mapFeature = mapDistricts[district]
-  console.log(mapFeature)
   if (prevClickedDistrict != null) {
     prevClickedDistrict.setStyle({
       color: 'black'

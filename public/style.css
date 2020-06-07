@@ -10,6 +10,7 @@ body {
   line-height: 1.5em;
 }
 
+
 h1 {
   font-style: italic;
   color: #373fff;
@@ -67,3 +68,22 @@ select {font-size: inherit;}
 .bio .img img {width: 100%;}
 .bio .info {display: flex; flex-direction: column; flex: 1; margin-left: 1em;}
 .bio h3, .bio h4, .bio p {margin: 0; padding: 0;}
+
+#content {
+  display: flex
+}
+
+#form_results {
+  display: flex;
+  flex-direction: column;
+  flex-basis: 100%;
+  flex: 1;
+}
+
+#map {
+  display: flex;
+  flex-direction: column;
+  flex-basis: 100%;
+  flex: 1;
+  height: 85vh;
+}

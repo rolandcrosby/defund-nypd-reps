@@ -4,7 +4,7 @@ const { GoogleSpreadsheet } = require("google-spreadsheet");
 const app = express();
 
 const spreadsheet_id = "18pWRSu58DpENABkYUJlZw1ltCPZft7KJc6lFaOZK8-s";
-const google_api_key = process.env["GOOGLE_KEY"];
+const google_api_key = "AIzaSyCvh0WwGL5m3H0ehIFdrDJjoqRbrja8MW4" //process.env["GOOGLE_KEY"];
 const geoclient_app_id = process.env["GEOCLIENT_APP_ID"];
 const geoclient_app_key = process.env["GEOCLIENT_APP_KEY"];
 const geoclient_url = `https://api.cityofnewyork.us/geoclient/v1/address.json?app_id=${geoclient_app_id}&app_key=${geoclient_app_key}&`;

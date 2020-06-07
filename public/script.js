@@ -4,7 +4,9 @@ let district = null;
 
 /* Handle map */
 var mymap = L.map('map').setView([40.7128, -73.98], 11);
-L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(mymap);
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+  attribution: '<a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors',
+}).addTo(mymap);
 prevClickedDistrict = null;
 mapDistricts = {}
 L.geoJSON(districts["features"], {

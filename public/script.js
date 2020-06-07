@@ -1,6 +1,28 @@
 const sheetData = {};
 let district = null;
 
+
+/* Handle map */
+var mymap = L.map('map').setView([40.7128, -73.98], 11);
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+  attribution: '<a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors',
+}).addTo(mymap);
+prevClickedDistrict = null;
+mapDistricts = {}
+L.geoJSON(districts["features"], {
+  color: 'black',
+  weight: 1,
+  onEachFeature: (feature, layer) => {
+    mapDistricts[feature["properties"]["CounDist"]] = layer
+    layer.on('click', (e) => {
+      councilDistrict = e["target"]["feature"]["properties"]["CounDist"]
+      setDistrict(councilDistrict)
+      render(councilDistrict)
+    })
+  }
+}).addTo(mymap);
+
+
 const autocomplete = new google.maps.places.Autocomplete(
   document.getElementById("address-field"),
   {
@@ -43,6 +65,18 @@ function setDistrict(d) {
   district = d;
   document.getElementById("district-selector").value = district;
   history.replaceState(d, `/district/${d}`, `/district/${d}`);
+
+  // Update map style/color
+  mapFeature = mapDistricts[district]
+  if (prevClickedDistrict != null) {
+    prevClickedDistrict.setStyle({
+      color: 'black'
+    })
+  }
+  prevClickedDistrict = mapFeature
+  mapFeature.setStyle({
+    color: 'red'
+  })
 }
 
 async function geocode() {

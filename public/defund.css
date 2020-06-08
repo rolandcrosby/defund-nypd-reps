@@ -96,6 +96,7 @@ main.placeholder h1 {
 }
 
 main > section,
+.logical-section > section,
 .person .name-position,
 .person .contact {
   padding-left: 5px;

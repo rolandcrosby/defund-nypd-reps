@@ -122,13 +122,20 @@ footer {
 
 footer ul {
   display: flex;
-  margin: 0 -1rem 1rem;
+  margin: 0 0 1rem;
   justify-content: center;
 }
 
 footer ul li {
-  padding: 0 1rem;
-  flex: 1 1 0;
+  margin: 0 0.5rem;
+}
+
+footer ul li:first-child {
+  margin-left: 0;
+}
+
+footer ul li:last-child {
+  margin-right: 0;
 }
 
 a {
@@ -168,7 +175,7 @@ a {
   
   .lookup-form input {
     display: block;
-    margin: 0 auto;
+    margin: 0 0 0.5rem;
   }
 
   main > h2 + section,

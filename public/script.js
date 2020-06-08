@@ -5,7 +5,7 @@ Vue.filter("capitalize", function(value) {
 });
 
 Vue.component("Tweet", {
-  props: ['id'],
+  props: ["id"],
   template: `<div ref="tweetContainer"></div>`,
   mounted: function() {
     this.$nextTick(function() {
@@ -18,7 +18,7 @@ Vue.component("Tweet", {
         this.$nextTick(function() {
           this.$refs.tweetContainer.innerHTML = "";
           twttr.widgets.createTweet(newID, this.$refs.tweetContainer);
-        })
+        });
       }
     }
   }
@@ -29,7 +29,8 @@ const app = new Vue({
   data: {
     district: 0,
     byDistrict: {},
-    address: ""
+    address: "",
+    error: null
   },
   created: function() {
     fetch("/sheet")
@@ -37,7 +38,10 @@ const app = new Vue({
       .then(json => {
         this.byDistrict = json;
       })
-      .catch(e => {});
+      .catch(e => {
+        app.error =
+          "Sorry, a problem occurred while retrieving councilmember data.";
+      });
   },
   computed: {
     member: function() {
@@ -131,14 +135,19 @@ async function geocode() {
       q.zip = f.short_name;
     }
   });
-  const response = await fetch(
-    `/geoclient-proxy?houseNumber=${encodeURIComponent(
-      q.houseNumber
-    )}&street=${encodeURIComponent(q.street)}&zip=${encodeURIComponent(q.zip)}`
-  );
-  const responseJSON = await response.json();
-  if (responseJSON.address && responseJSON.address.cityCouncilDistrict) {
-    setDistrict(parseInt(responseJSON.address.cityCouncilDistrict, 10));
+  try {
+    const response = await fetch(
+      `/geoclient-proxy?houseNumber=${encodeURIComponent(
+        q.houseNumber
+      )}&street=${encodeURIComponent(q.street)}&zip=${encodeURIComponent(
+        q.zip
+      )}`
+    );
+    const responseJSON = await response.json();
+    if (responseJSON.address && responseJSON.address.cityCouncilDistrict) {
+      setDistrict(parseInt(responseJSON.address.cityCouncilDistrict, 10));
+    }
+  } catch (e) {
+    app.error = "Sorry, an error occurred while looking up your address.";
   }
-  // todo: handle error here
 }

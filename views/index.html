@@ -18,7 +18,10 @@
       type="text/javascript"
       src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCvh0WwGL5m3H0ehIFdrDJjoqRbrja8MW4&libraries=places"
     ></script>
+    <!-- production: -->
     <script src="https://cdn.jsdelivr.net/npm/vue@2.6.11"></script>
+    <!-- development: -->
+    <!-- <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script> -->
     <script src="https://platform.twitter.com/widgets.js"></script>
     <script src="/script.js" defer></script>
   </head>
@@ -41,7 +44,7 @@
             v-model="district"
             v-on:change="menuChanged"
           >
-            <option disabled selected>select your district</option>
+            <option disabled selected value="0">select your district</option>
             <option value="1">District 1</option>
             <option value="2">District 2</option>
             <option value="3">District 3</option>
@@ -236,6 +239,14 @@
             {{member.total_police_contributions}} in police contributions.
           </p>
         </section>
+      </main>
+      <main v-if="error" class="placeholder">
+        <h1>
+          Defund the NYPD
+        </h1>
+        <p>
+          {{error}}
+        </p>
       </main>
       <main v-if="district == 37" class="placeholder">
         <h1>

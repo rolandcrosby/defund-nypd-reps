@@ -1,0 +1,129 @@
+html,
+body,
+h1,
+h2,
+h3,
+p,
+div,
+form,
+ul,
+li,
+blockquote,
+input,
+select,
+label {
+  margin: 0;
+  padding: 0;
+  font-size: unset;
+  font-weight: normal;
+}
+
+ul,
+li {
+  list-style: none;
+}
+
+body {
+  padding: 0 20px;
+  font-size: 20px;
+  max-width: 1000px;
+  font-family: "Crimson Text", serif;
+}
+
+.app {
+  display: grid;
+  grid-template-columns: 12em 1fr 1fr;
+}
+
+main,
+.person,
+.logical-section {
+  display: contents;
+}
+
+main.placeholder h1, main.placeholder p {
+  grid-column: -1 / 1;
+}
+
+.lookup-form {
+  grid-column: 1 / -1;
+  padding-top: 5px;
+  font-size: 0.8em;
+  text-align: center;
+}
+
+.lookup-form input {
+  min-width: 20rem;
+}
+
+main > h2,
+.logical-section > .h2 {
+  grid-column: 1 / 2;
+}
+
+main > h2 + section,
+.logical-section > h2 + section {
+  grid-column: 2 / -1;
+}
+
+main.placeholder h1,
+main > h2,
+main > h2 + section,
+.logical-section > h2,
+.logical-section > h2 + section,
+.person img,
+.person .name-position,
+.person .contact,
+footer {
+  border-top: 2px solid #222;
+  margin-top: 10px;
+  padding-top: 5px;
+}
+
+.person img {
+  width: 100%;
+  padding-top: 0;
+}
+
+.person h1,
+main.placeholder h1 {
+  font-weight: 900;
+  font-size: 1.4em;
+  line-height: 1;
+}
+.person h2 {
+  font-size: 1.2em;
+}
+
+main > section,
+.person .name-position,
+.person .contact {
+  padding-left: 5px;
+}
+
+.positions .position {
+}
+
+.positions .position strong {
+  text-transform: uppercase;
+}
+
+footer {
+  grid-column: 1 / -1;
+  font-size: 0.8em;
+  text-transform: lowercase;
+}
+
+footer ul {
+  display: flex;
+  margin: 0 -1rem 1rem;
+  justify-content: center;
+}
+
+footer ul li {
+  padding: 0 1rem;
+}
+
+a {
+  color: #c33;
+}

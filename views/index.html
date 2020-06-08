@@ -1,116 +1,282 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="utf-8" />
+    <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="description" content="Find your council member's position on defunding the NYPD" />
-
-    <title>Find your council member's position on #DefundtheNYPD</title>
-
-    <link
-      id="favicon"
-      rel="icon"
-      href="https://glitch.com/edit/favicon-app.ico"
-      type="image/x-icon"
+    <meta
+      name="description"
+      content="Find your council member’s position on defunding the NYPD"
     />
-    <link rel="stylesheet" href="/style.css" />
+    <title>Defund the NYPD</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,700;1,400;1,700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/defund.css" />
     <script
       type="text/javascript"
       src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCvh0WwGL5m3H0ehIFdrDJjoqRbrja8MW4&libraries=places"
     ></script>
-    <script src="https://platform.twitter.com/widgets.js" async></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://platform.twitter.com/widgets.js"></script>
     <script src="/script.js" defer></script>
   </head>
   <body>
-    <main>
-      <h2>Where does your city council member stand on #DefundtheNYPD?</h2>
-
-      <form>
-        <label>
-          Home Address
+    <div class="app">
+      <form class="lookup-form">
+        <label
+          >Look up your council member:
           <input
             name="address"
             id="address-field"
-            type="text"
-            maxlength="100"
-            required
-            placeholder="69-69 69th St, Ridgewood, NY 11385"
-          />
-        </label>
-        <label>Or, select your district:
-          <select name="district" id="district-selector">
-            <option disabled selected></option>
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-            <option value="4">4</option>
-            <option value="5">5</option>
-            <option value="6">6</option>
-            <option value="7">7</option>
-            <option value="8">8</option>
-            <option value="9">9</option>
-            <option value="10">10</option>
-            <option value="11">11</option>
-            <option value="12">12</option>
-            <option value="13">13</option>
-            <option value="14">14</option>
-            <option value="15">15</option>
-            <option value="16">16</option>
-            <option value="17">17</option>
-            <option value="18">18</option>
-            <option value="19">19</option>
-            <option value="20">20</option>
-            <option value="21">21</option>
-            <option value="22">22</option>
-            <option value="23">23</option>
-            <option value="24">24</option>
-            <option value="25">25</option>
-            <option value="26">26</option>
-            <option value="27">27</option>
-            <option value="28">28</option>
-            <option value="29">29</option>
-            <option value="30">30</option>
-            <option value="31">31</option>
-            <option value="32">32</option>
-            <option value="33">33</option>
-            <option value="34">34</option>
-            <option value="35">35</option>
-            <option value="36">36</option>
-            <option value="37">37</option>
-            <option value="38">38</option>
-            <option value="39">39</option>
-            <option value="40">40</option>
-            <option value="41">41</option>
-            <option value="42">42</option>
-            <option value="43">43</option>
-            <option value="44">44</option>
-            <option value="45">45</option>
-            <option value="46">46</option>
-            <option value="47">47</option>
-            <option value="48">48</option>
-            <option value="49">49</option>
-            <option value="50">50</option>
-            <option value="51">51</option>
-          </select>
-        </label>
+            v-model="address"
+            placeholder="30 Rockefeller Plaza, New York, NY 10112"
+        /></label>
+        <label
+          >or
+          <select
+            name="district"
+            id="district-selector"
+            v-model="district"
+            v-on:change="menuChanged"
+          >
+            <option disabled selected>select your district</option>
+            <option value="1">District 1</option>
+            <option value="2">District 2</option>
+            <option value="3">District 3</option>
+            <option value="4">District 4</option>
+            <option value="5">District 5</option>
+            <option value="6">District 6</option>
+            <option value="7">District 7</option>
+            <option value="8">District 8</option>
+            <option value="9">District 9</option>
+            <option value="10">District 10</option>
+            <option value="11">District 11</option>
+            <option value="12">District 12</option>
+            <option value="13">District 13</option>
+            <option value="14">District 14</option>
+            <option value="15">District 15</option>
+            <option value="16">District 16</option>
+            <option value="17">District 17</option>
+            <option value="18">District 18</option>
+            <option value="19">District 19</option>
+            <option value="20">District 20</option>
+            <option value="21">District 21</option>
+            <option value="22">District 22</option>
+            <option value="23">District 23</option>
+            <option value="24">District 24</option>
+            <option value="25">District 25</option>
+            <option value="26">District 26</option>
+            <option value="27">District 27</option>
+            <option value="28">District 28</option>
+            <option value="29">District 29</option>
+            <option value="30">District 30</option>
+            <option value="31">District 31</option>
+            <option value="32">District 32</option>
+            <option value="33">District 33</option>
+            <option value="34">District 34</option>
+            <option value="35">District 35</option>
+            <option value="36">District 36</option>
+            <option value="37">District 37</option>
+            <option value="38">District 38</option>
+            <option value="39">District 39</option>
+            <option value="40">District 40</option>
+            <option value="41">District 41</option>
+            <option value="42">District 42</option>
+            <option value="43">District 43</option>
+            <option value="44">District 44</option>
+            <option value="45">District 45</option>
+            <option value="46">District 46</option>
+            <option value="47">District 47</option>
+            <option value="48">District 48</option>
+            <option value="49">District 49</option>
+            <option value="50">District 50</option>
+            <option value="51">District 51</option></select
+          ></label
+        >
       </form>
+      <main v-if="member">
+        <div class="person">
+          <img v-bind:src="member.photo_url" v-bind:alt="member.full_name" />
+          <div class="name-position">
+            <h1>{{member.full_name}}</h1>
+            <h2 v-if="member.title == 'speaker'">
+              Speaker of the City Council
+            </h2>
+            <h2>District {{district}}, {{member.borough}}</h2>
+            <p>{{member.party | capitalize}}</p>
+            <p v-if="member.budget_negotiating_team">
+              Member of
+              <a href="https://council.nyc.gov/press/2020/03/27/1908/"
+                >budget negotiating team</a
+              >
+            </p>
+          </div>
+          <div class="contact">
+            <ul>
+              <li v-for="phone in member.phones">
+                <a v-bind:href="'tel:' + phone[1]" v-bind:title="phone[0]"
+                  >{{phone[1]}}</a
+                >
+              </li>
+              <li v-for="email in member.emails">
+                <a v-bind:href="'mailto:' + email">{{email}}</a>
+              </li>
+              <li><a v-bind:href="member.council_url">Council website</a></li>
+              <li v-for="handle in member.social.twitter_handles">
+                <a v-bind:href="'https://twitter.com/' + handle">@{{handle}}</a>
+              </li>
+              <li v-for="handle in member.social.instagram_handles">
+                Instagram:
+                <a v-bind:href="'https://instagram.com/' + handle"
+                  >@{{handle}}</a
+                >
+              </li>
+              <li v-for="url in member.social.facebook_urls">
+                <a v-bind:href="url">Facebook</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <h2>Positions</h2>
+        <section class="positions">
+          <div
+            class="position positive"
+            v-if="member.positions.cut_nypd_budget == 'YES'"
+          >
+            <strong>Supports</strong> cutting the NYPD budget
+          </div>
+          <div
+            class="position negative"
+            v-if="member.positions.cut_nypd_budget == 'NO'"
+          >
+            <strong>Opposes</strong> cutting the NYPD budget
+          </div>
+          <div
+            class="position unknown"
+            v-if="member.positions.cut_nypd_budget == null"
+          >
+            <strong>Has not committed</strong> to cutting the NYPD budget
+          </div>
+          <div
+            class="position positive"
+            v-if="member.positions.vote_against_status_quo_budget == 'YES'"
+          >
+            <strong>Will vote against</strong> a status-quo NYPD budget
+          </div>
+          <div
+            class="position negative"
+            v-if="member.positions.vote_against_status_quo_budget == 'NO'"
+          >
+            <strong>Will not vote against</strong> a status-quo NYPD budget
+          </div>
+          <div
+            class="position unknown"
+            v-if="member.positions.vote_against_status_quo_budget == 'MAYBE'"
+          >
+            <strong>Has not committed</strong> to voting against a status-quo
+            NYPD budget
+          </div>
+          <div
+            class="position unknown"
+            v-if="member.positions.vote_against_status_quo_budget == null"
+          >
+            <strong>Has not committed</strong> to voting against a status-quo
+            NYPD budget
+          </div>
+          <div
+            class="position"
+            v-if="member.positions.nypd_cut_amount && member.positions.nypd_cut_amount != 'Against cuts'"
+          >
+            Is seeking <strong>{{member.positions.nypd_cut_amount}}</strong> in
+            cuts to the NYPD budget
+          </div>
+          <div
+            class="position"
+            v-if="member.positions.nypd_cut_amount == null && member.positions.vote_against_status_quo_budget != 'NO'"
+          >
+            <strong>Has not specified</strong> a desired NYPD budget cut amount
+          </div>
+        </section>
+        <div
+          class="logical-section"
+          v-if="member.public_statements && member.public_statements.length > 0"
+        >
+          <h2>Public Statements</h2>
+          <section class="statements">
+            <div v-for="statement in member.public_statements">
+              <Tweet
+                v-if="tweetID(statement) != ''"
+                v-bind:id="tweetID(statement)"
+              ></Tweet>
+              <div v-else>
+                <a v-bind:href="statement">{{statement}}</a>
+              </div>
+            </div>
+          </section>
+        </div>
+        <h2>Political Ambitions</h2>
+        <section class="elections" v-if="member.on_ballot">
+          <p>
+            {{member.last_name}} is planning to run for
+            {{member.ballot_position}}. Their next primary election will be
+            {{member.next_primary}}.
+          </p>
+        </section>
+        <section class="elections" v-if="!member.on_ballot">
+          <p>
+            {{member.last_name}} is not on the ballot in any upcoming elections.
+          </p>
+        </section>
+        <h2>Police Contributions</h2>
+        <section class="contributions">
+          <p>
+            {{member.last_name}} has accepted a total of
+            {{member.total_police_contributions}} in police contributions.
+          </p>
+        </section>
+      </main>
+      <main v-if="district == 37" class="placeholder">
+        <h1>
+          Defund the NYPD
+        </h1>
+        <p>
+          The council seat in district 37 is currently vacant.
+        </p>
+      </main>
+      <main v-if="!district" class="placeholder">
+        <h1>
+          Defund the NYPD
+        </h1>
+        <p>
+          To see your city council member’s position on defending the NYPD, enter your address or select your district above.
+        </p>
+      </main>
+      <footer>
+        <ul>
+          <li>
+            by
+            <a href="https://glitch.com/@rolandcrosby">@rolandcrosby</a>
+          </li>
 
-      <section>
-        <div id="result"></div>
-      </section>
-    </main>
-
-    <footer>
-      by <a href="https://glitch.com/@rolandcrosby">@rolandcrosby</a> • <a href="https://github.com/rolandcrosby/defund-nypd-reps/">source</a> • data
-      from
-      <a
-        href="https://docs.google.com/spreadsheets/d/18pWRSu58DpENABkYUJlZw1ltCPZft7KJc6lFaOZK8-s/view"
-        >this spreadsheet</a
-      >, Google, and
-      <a href="https://developer.cityofnewyork.us/api/geoclient-api">NYC</a>
-      • see also
-      <a href="http://defund-nypd.glitch.me/">defund-nypd.glitch.me</a>
-    </footer>
+          <li>
+            <a
+              href="https://docs.google.com/spreadsheets/d/18pWRSu58DpENABkYUJlZw1ltCPZft7KJc6lFaOZK8-s/view"
+              >Data source</a
+            >
+          </li>
+          <li>
+            <a href="https://github.com/rolandcrosby/defund-nypd-reps"
+              >Source code</a
+            >
+          </li>
+          <li>
+            see also
+            <a href="http://defund-nypd.glitch.me/">defund-nypd.glitch.me</a>
+          </li>
+        </ul>
+      </footer>
+    </div>
   </body>
 </html>

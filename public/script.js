@@ -1,3 +1,7 @@
+if (window.location.protocol === 'http:') {
+  window.location.replace(window.location.href.replace(/^http:/, 'https:'));
+}
+
 Vue.filter("capitalize", function(value) {
   if (!value) return "";
   value = value.toString();

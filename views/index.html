@@ -99,171 +99,214 @@
           ></label
         >
       </form>
-      <main v-if="member">
-        <div class="person">
-          <img v-bind:src="member.photo_url" v-bind:alt="member.full_name" />
-          <div class="name-position">
-            <h1>{{member.full_name}}</h1>
-            <h2 v-if="member.title == 'speaker'">
-              Speaker of the City Council
-            </h2>
-            <h2>District {{district}}, {{member.borough}}</h2>
-            <p>{{member.party | capitalize}}</p>
-            <p v-if="member.budget_negotiating_team">
-              Member of
-              <a href="https://council.nyc.gov/press/2020/03/27/1908/"
-                >budget negotiating team</a
-              >
-            </p>
-          </div>
-          <div class="contact">
-            <ul>
-              <li v-for="phone in member.phones">
-                <a v-bind:href="'tel:' + phone[1]" v-bind:title="phone[0]"
-                  >{{phone[1]}}</a
+      <main>
+        <div v-if="member">
+          <div class="person">
+            <img v-bind:src="member.photo_url" v-bind:alt="member.full_name" />
+            <div class="name-position">
+              <h1>{{member.full_name}}</h1>
+              <h2 v-if="member.title == 'speaker'">
+                Speaker of the City Council
+              </h2>
+              <h2>District {{district}}, {{member.borough}}</h2>
+              <p>{{member.party | capitalize}}</p>
+              <p v-if="member.budget_negotiating_team">
+                Member of
+                <a href="https://council.nyc.gov/press/2020/03/27/1908/"
+                  >budget negotiating team</a
                 >
-              </li>
-              <li v-for="email in member.emails">
-                <a v-bind:href="'mailto:' + email">{{email}}</a>
-              </li>
-              <li><a v-bind:href="member.council_url">Council website</a></li>
-              <li v-for="handle in member.social.twitter_handles">
-                <a v-bind:href="'https://twitter.com/' + handle">@{{handle}}</a>
-              </li>
-              <li v-for="handle in member.social.instagram_handles">
-                Instagram:
-                <a v-bind:href="'https://instagram.com/' + handle"
-                  >@{{handle}}</a
-                >
-              </li>
-              <li v-for="url in member.social.facebook_urls">
-                <a v-bind:href="url">Facebook</a>
-              </li>
-            </ul>
+              </p>
+            </div>
+            <div class="contact">
+              <ul>
+                <li v-for="phone in member.phones">
+                  <a v-bind:href="'tel:' + phone[1]" v-bind:title="phone[0]"
+                    >{{phone[1]}}</a
+                  >
+                </li>
+                <li v-for="email in member.emails">
+                  <a v-bind:href="'mailto:' + email">{{email}}</a>
+                </li>
+                <li><a v-bind:href="member.council_url">Council website</a></li>
+                <li v-for="handle in member.social.twitter_handles">
+                  <a v-bind:href="'https://twitter.com/' + handle"
+                    >@{{handle}}</a
+                  >
+                </li>
+                <li v-for="handle in member.social.instagram_handles">
+                  Instagram:
+                  <a v-bind:href="'https://instagram.com/' + handle"
+                    >@{{handle}}</a
+                  >
+                </li>
+                <li v-for="url in member.social.facebook_urls">
+                  <a v-bind:href="url">Facebook</a>
+                </li>
+              </ul>
+            </div>
           </div>
-        </div>
-        <h2>Positions</h2>
-        <section class="positions">
-          <div
-            class="position positive"
-            v-if="member.positions.cut_nypd_budget == 'YES'"
-          >
-            <strong>Supports</strong> cutting the NYPD budget
-          </div>
-          <div
-            class="position negative"
-            v-if="member.positions.cut_nypd_budget == 'NO'"
-          >
-            <strong>Opposes</strong> cutting the NYPD budget
-          </div>
-          <div
-            class="position unknown"
-            v-if="member.positions.cut_nypd_budget == null"
-          >
-            <strong>Has not committed</strong> to cutting the NYPD budget
-          </div>
-          <div
-            class="position positive"
-            v-if="member.positions.vote_against_status_quo_budget == 'YES'"
-          >
-            <strong>Will vote against</strong> a status-quo NYPD budget
-          </div>
-          <div
-            class="position negative"
-            v-if="member.positions.vote_against_status_quo_budget == 'NO'"
-          >
-            <strong>Will not vote against</strong> a status-quo NYPD budget
-          </div>
-          <div
-            class="position unknown"
-            v-if="member.positions.vote_against_status_quo_budget == 'MAYBE'"
-          >
-            <strong>Has not committed</strong> to voting against a status-quo
-            NYPD budget
-          </div>
-          <div
-            class="position unknown"
-            v-if="member.positions.vote_against_status_quo_budget == null"
-          >
-            <strong>Has not committed</strong> to voting against a status-quo
-            NYPD budget
-          </div>
-          <div
-            class="position"
-            v-if="member.positions.nypd_cut_amount && member.positions.nypd_cut_amount != 'Against cuts'"
-          >
-            Is seeking <strong>{{member.positions.nypd_cut_amount}}</strong> in
-            cuts to the NYPD budget
-          </div>
-          <div
-            class="position"
-            v-if="member.positions.nypd_cut_amount == null && member.positions.vote_against_status_quo_budget != 'NO'"
-          >
-            <strong>Has not specified</strong> a desired NYPD budget cut amount
-          </div>
-        </section>
-        <div
-          class="logical-section"
-          v-if="member.public_statements && member.public_statements.length > 0"
-        >
-          <h2>Public Statements</h2>
-          <section class="statements">
-            <div v-for="statement in member.public_statements">
-              <Tweet
-                v-if="tweetID(statement) != ''"
-                v-bind:id="tweetID(statement)"
-              ></Tweet>
-              <div v-else>
-                <a v-bind:href="statement">{{statement}}</a>
-              </div>
+          <h2>Positions</h2>
+          <section class="positions">
+            <div
+              class="position positive"
+              v-if="member.positions.cut_nypd_budget == 'YES'"
+            >
+              <strong>Supports</strong> cutting the NYPD budget
+            </div>
+            <div
+              class="position negative"
+              v-if="member.positions.cut_nypd_budget == 'NO'"
+            >
+              <strong>Opposes</strong> cutting the NYPD budget
+            </div>
+            <div
+              class="position unknown"
+              v-if="member.positions.cut_nypd_budget == null"
+            >
+              <strong>Has not committed</strong> to cutting the NYPD budget
+            </div>
+            <div
+              class="position positive"
+              v-if="member.positions.vote_against_status_quo_budget == 'YES'"
+            >
+              <strong>Will vote against</strong> a status-quo NYPD budget
+            </div>
+            <div
+              class="position negative"
+              v-if="member.positions.vote_against_status_quo_budget == 'NO'"
+            >
+              <strong>Will not vote against</strong> a status-quo NYPD budget
+            </div>
+            <div
+              class="position unknown"
+              v-if="member.positions.vote_against_status_quo_budget == 'MAYBE'"
+            >
+              <strong>Has not committed</strong> to voting against a status-quo
+              NYPD budget
+            </div>
+            <div
+              class="position unknown"
+              v-if="member.positions.vote_against_status_quo_budget == null"
+            >
+              <strong>Has not committed</strong> to voting against a status-quo
+              NYPD budget
+            </div>
+            <div
+              class="position"
+              v-if="member.positions.nypd_cut_amount && member.positions.nypd_cut_amount != 'Against cuts'"
+            >
+              Is seeking
+              <strong>{{member.positions.nypd_cut_amount}}</strong> in cuts to
+              the NYPD budget
+            </div>
+            <div
+              class="position"
+              v-if="member.positions.nypd_cut_amount == null && member.positions.vote_against_status_quo_budget != 'NO'"
+            >
+              <strong>Has not specified</strong> a desired NYPD budget cut
+              amount
             </div>
           </section>
+          <div
+            class="logical-section"
+            v-if="member.public_statements && member.public_statements.length > 0"
+          >
+            <h2>Public Statements</h2>
+            <section class="statements">
+              <div v-for="statement in member.public_statements">
+                <Tweet
+                  v-if="tweetID(statement) != ''"
+                  v-bind:id="tweetID(statement)"
+                ></Tweet>
+                <div v-else>
+                  <a v-bind:href="statement">{{statement}}</a>
+                </div>
+              </div>
+            </section>
+          </div>
+          <h2>Political Ambitions</h2>
+          <section class="elections" v-if="member.on_ballot">
+            <p>
+              {{member.last_name}} is planning to run for
+              {{member.ballot_position}}. Their next primary election will be
+              {{member.next_primary}}.
+            </p>
+          </section>
+          <section class="elections" v-if="!member.on_ballot">
+            <p>
+              {{member.last_name}} is not on the ballot in any upcoming
+              elections.
+            </p>
+          </section>
+          <h2>Police Contributions</h2>
+          <section class="contributions">
+            <p>
+              {{member.last_name}} has accepted a total of
+              {{member.total_police_contributions}} in police contributions.
+            </p>
+          </section>
         </div>
-        <h2>Political Ambitions</h2>
-        <section class="elections" v-if="member.on_ballot">
-          <p>
-            {{member.last_name}} is planning to run for
-            {{member.ballot_position}}. Their next primary election will be
-            {{member.next_primary}}.
+        <div v-if="!member" class="placeholder">
+          <h1>
+            Defund the NYPD
+          </h1>
+          <p v-if="error">
+            {{error}}
           </p>
-        </section>
-        <section class="elections" v-if="!member.on_ballot">
-          <p>
-            {{member.last_name}} is not on the ballot in any upcoming elections.
+          <p v-if="!district">
+            To see your city council member’s position on defunding the NYPD,
+            enter your address or select your district above.
           </p>
-        </section>
-        <h2>Police Contributions</h2>
-        <section class="contributions">
-          <p>
-            {{member.last_name}} has accepted a total of
-            {{member.total_police_contributions}} in police contributions.
+          <p v-if="district == 37">
+            The council seat in district 37 is currently vacant.
           </p>
-        </section>
-      </main>
-      <main v-if="error" class="placeholder">
-        <h1>
-          Defund the NYPD
-        </h1>
-        <p>
-          {{error}}
-        </p>
-      </main>
-      <main v-if="district == 37" class="placeholder">
-        <h1>
-          Defund the NYPD
-        </h1>
-        <p>
-          The council seat in district 37 is currently vacant.
-        </p>
-      </main>
-      <main v-if="!district" class="placeholder">
-        <h1>
-          Defund the NYPD
-        </h1>
-        <p>
-          To see your city council member’s position on defunding the NYPD,
-          enter your address or select your district above.
-        </p>
+        </div>
+        <div class="common">
+          <h2>Resources</h2>
+          <section>
+            <p>
+              Though the idea of defunding police has recently gained
+              unprecedented prominence in American political discourse, it is
+              far from a new or understudied concept. The following resources
+              provide an introduction to abolitionist thinking and the
+              alternatives to the status quo.
+            </p>
+            <ul class="bullet">
+              <li>
+                <a href="http://criticalresistance.org/abolish-policing/"
+                  >Critical Resistance: Abolish Policing</a
+                >
+              </li>
+              <li>
+                <a href="http://brooklynmovementcenter.org"
+                  >Brooklyn Movement Center</a
+                >, specifically their
+                <a href="https://www.facebook.com/watch/?v=561557191412727"
+                  >#DefundtheNYPD and #Repeal50A teach-in</a
+                >
+              </li>
+              <li>
+                <a href="https://www.changethenypd.org/issue"
+                  >Communities United for Police Reform</a
+                >
+              </li>
+              <li>
+                The Marshall Project’s
+                <a
+                  href="https://www.themarshallproject.org/records/3382-police-abolition"
+                  >collection of articles about police abolition</a
+                >
+              </li>
+              <li>
+                <a
+                  href="https://theanarchistlibrary.org/library/dean-spade-common-question-about-police-and-prison-abolition-and-responses"
+                  >Dean Spade: Common questions about police and prison
+                  abolition</a
+                >
+              </li>
+            </ul>
+          </section>
+        </div>
       </main>
       <footer>
         <ul>

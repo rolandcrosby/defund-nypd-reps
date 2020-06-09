@@ -36,13 +36,14 @@ body {
 }
 
 main,
+main > div,
 .person,
 .logical-section {
   display: contents;
 }
 
-main.placeholder h1,
-main.placeholder p {
+.placeholder h1,
+.placeholder p {
   grid-column: -1 / 1;
 }
 
@@ -57,19 +58,19 @@ main.placeholder p {
   min-width: 20rem;
 }
 
-main > h2,
+main > div > h2,
 .logical-section > h2 {
   grid-column: 1 / 2;
 }
 
-main > h2 + section,
+main > div > h2 + section,
 .logical-section > h2 + section {
   grid-column: 2 / -1;
 }
 
-main.placeholder h1,
-main > h2,
-main > h2 + section,
+.placeholder h1,
+main > div > h2,
+main > div > h2 + section,
 .logical-section > h2,
 .logical-section > h2 + section,
 .person img,
@@ -87,7 +88,7 @@ footer {
 }
 
 .person h1,
-main.placeholder h1 {
+.placeholder h1 {
   font-weight: 900;
   font-size: 1.4em;
   line-height: 1;
@@ -100,7 +101,7 @@ main.placeholder h1 {
   overflow-wrap: break-word;
 }
 
-main > section,
+main > div > section,
 .logical-section > section,
 .person .name-position,
 .person .contact {
@@ -142,6 +143,14 @@ a {
   color: #c33;
 }
 
+ul.bullet {
+  padding-left: 1.25em;
+}
+
+ul.bullet li {
+  list-style-type: square;
+}
+
 @media (max-width: 600px) {
   .app {
     grid-template-columns: 1fr 6em;
@@ -163,22 +172,22 @@ a {
     grid-column: 1 / -1;
   }
   
-  main > h2,
+  main > div > h2,
   .logical-section > h2 {
     grid-column: 1 / -1;
   }
 
-  main > h2 + section,
+  main > div > h2 + section,
   .logical-section > h2 + section {
     grid-column: 1 / -1;
   }
   
   .lookup-form input {
     display: block;
-    margin: 0 0 0.5rem;
+    margin: 0 auto 0.5rem;
   }
 
-  main > h2 + section,
+  main > div > h2 + section,
   .logical-section > h2 + section,
   .person .contact {
     border-top: 0;
@@ -186,7 +195,7 @@ a {
     margin-top: 0;
   }
 
-  main > section,
+  main > div > section,
   .logical-section > section,
   .person .name-position,
   .person .contact {

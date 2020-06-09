@@ -228,7 +228,7 @@
           <section class="elections" v-if="member.on_ballot">
             <p>
               {{member.last_name}} is planning to run for
-              {{member.ballot_position}}. Their next primary election will be
+              {{member.ballot_position}}. {{member.gender | possessive | capitalize}} next primary election will be
               {{member.next_primary}}.
             </p>
           </section>

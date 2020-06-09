@@ -150,7 +150,7 @@ async function getSpreadsheetData() {
       ) {
         data[district].budget_negotiating_team =
           sheet.getCell(r, c).value.toLowerCase() === "yes";
-      } else if (headers[c].toLowerCase().startsWith("on the ballot")) {
+      } else if (headers[c].toLowerCase().indexOf("running in 2020/2021") !== -1) {
         data[district].on_ballot =
           sheet.getCell(r, c).value.toLowerCase() === "yes";
       } else if (

@@ -8,6 +8,16 @@ Vue.filter("capitalize", function(value) {
   return value.charAt(0).toUpperCase() + value.slice(1);
 });
 
+Vue.filter("possessive", function(value) {
+  if (value === "male") {
+    return "his";
+  } else if (value === "female") {
+    return "her";
+  } else {
+    return "their";
+  }
+});
+
 Vue.component("Tweet", {
   props: ["id"],
   template: `<div ref="tweetContainer"></div>`,

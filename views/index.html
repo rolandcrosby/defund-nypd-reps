@@ -228,7 +228,8 @@
           <section class="elections" v-if="member.on_ballot">
             <p>
               {{member.last_name}} is planning to run for
-              {{member.ballot_position}}. {{member.gender | possessive | capitalize}} next primary election will be
+              {{member.ballot_position}}. {{member.gender | possessive |
+              capitalize}} next primary election will be
               {{member.next_primary}}.
             </p>
           </section>
@@ -262,14 +263,42 @@
           </p>
         </div>
         <div class="common">
+          <h2>Take Action</h2>
+          <section class="email">
+            <p v-if="member">
+              Enter your contact information to send an email to
+              {{member.last_name}}, calling for them to defund the NYPD.
+            </p>
+            <p v-else>
+              Enter your contact information to send an email to the City Council, calling for them to defund the NYPD.
+            </p>
+            <form>
+              <label><span>Your name</span><input ref="constituentName" v-model="constituent.name"/></label>
+              <label
+                ><span>Your borough or neighborhood</span><input ref="constituentBorough"
+                  v-model="constituent.borough"
+              /></label>
+            </form>
+            <button v-on:click="generateEmail">Generate email</button>
+            <div class="email-preview" v-bind:class="emailVisible ? 'visible' : 'invisible'">
+              <textarea ref="emailCompose"></textarea>
+              <button v-on:click="sendMailto">
+                Open in email app
+              </button>
+              <button v-on:click="sendGmail">
+                Open in Gmail
+              </button>
+            </div>
+          </section>
+
           <h2>Resources</h2>
           <section>
             <p>
               Though the idea of defunding police has recently gained
               unprecedented prominence in American political discourse, it is
               far from a new or understudied concept. The following resources
-              provide an introduction to abolitionist thinking and
-              alternatives to the status quo.
+              provide an introduction to abolitionist thinking and alternatives
+              to the status quo.
             </p>
             <ul class="bullet">
               <li>
@@ -290,7 +319,11 @@
                   >Communities United for Police Reform</a
                 >
               </li>
-              <li>The <a href="https://www.8toabolition.com">#8toAbolition</a> campaign</li>
+              <li>
+                The
+                <a href="https://www.8toabolition.com">#8toAbolition</a>
+                campaign
+              </li>
               <li>
                 The Marshall Project’s
                 <a
@@ -313,7 +346,7 @@
         <ul>
           <li>
             by
-            <a href="https://glitch.com/@rolandcrosby">@rolandcrosby</a>
+            <a href="https://glitch.com/@rolandcrosby">@rolandcrosby</a> and <a href="https://twitter.com/vickiniu">@vickiniu</a>
           </li>
 
           <li>
@@ -326,10 +359,6 @@
             <a href="https://github.com/rolandcrosby/defund-nypd-reps"
               >Source code</a
             >
-          </li>
-          <li>
-            see also
-            <a href="http://defund-nypd.glitch.me/">defund-nypd.glitch.me</a>
           </li>
         </ul>
       </footer>

@@ -151,6 +151,35 @@ ul.bullet li {
   list-style-type: square;
 }
 
+.email label {
+  display: flex;
+  margin: 0.2em 0;
+}
+
+.email label span {
+  width: 40%;
+}
+
+.email textarea {
+  width: 100%;
+  height: 25em;
+  font-family: inherit;
+  font-size: 0.9em;
+  margin-top: 0.3em;
+}
+
+.invalid {
+  border: 2px solid #c33;
+}
+
+.visible {
+  display: auto;
+}
+
+.invisible {
+  display: none;
+}
+
 @media (max-width: 600px) {
   .app {
     grid-template-columns: 1fr 6em;

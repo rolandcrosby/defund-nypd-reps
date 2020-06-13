@@ -45,10 +45,6 @@ app.get("/sheet", async (request, response) => {
   }
 });
 
-app.get("/council-json", async (request, response) => {
-  response.status(200).json(await getData());
-})
-
 app.get("/geoclient-proxy", async (request, response) => {
   try {
     const data = await geocodeAddress(request.query);

@@ -267,7 +267,7 @@
           <section class="email">
             <p v-if="member">
               Enter your contact information to send an email to
-              {{member.last_name}}, calling for them to defund the NYPD.
+              {{member.last_name}}, calling for {{member.gender | objectPronoun}} to defund the NYPD.
             </p>
             <p v-else>
               Enter your address or your district to find your councilmember, or <a v-on:click="showEmailForm" href="javascript:void(0)">write an email to the entire City Council.</a>

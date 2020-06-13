@@ -87,7 +87,7 @@ async function getSpreadsheetData() {
           .getCell(r, c)
           .value.toString()
           .trim()
-          .split(/[ \n]+/g).forEach(phone => {
+          .match(/\d{3}[- ]\d{3}[- ]\d{4}/g).forEach(phone => {
           data[district].phones.push([headers[c], phone])  
         });
         

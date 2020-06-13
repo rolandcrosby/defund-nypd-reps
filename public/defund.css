@@ -154,10 +154,13 @@ ul.bullet li {
 .email label {
   display: flex;
   margin: 0.2em 0;
+  align-items: start;
 }
 
 .email label span {
   width: 40%;
+  padding-right: 0.2em;
+  overflow-wrap: break-word;
 }
 
 .email textarea {
@@ -172,15 +175,11 @@ ul.bullet li {
   border: 2px solid #c33;
 }
 
-.visible {
-  display: auto;
-}
-
 .invisible {
   display: none;
 }
 
-@media (max-width: 600px) {
+@media (max-width: 730px) {
   .app {
     grid-template-columns: 1fr 6em;
   }

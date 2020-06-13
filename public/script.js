@@ -18,6 +18,16 @@ Vue.filter("possessive", function(value) {
   }
 });
 
+Vue.filter("objectPronoun", function(value) {
+  if (value === "male") {
+    return "him";
+  } else if (value === "female") {
+    return "her";
+  } else {
+    return "them";
+  }
+});
+
 Vue.component("Tweet", {
   props: ["id"],
   template: `<div ref="tweetContainer"></div>`,

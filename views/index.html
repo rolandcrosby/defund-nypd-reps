@@ -270,16 +270,16 @@
               {{member.last_name}}, calling for them to defund the NYPD.
             </p>
             <p v-else>
-              Enter your contact information to send an email to the City Council, calling for them to defund the NYPD.
+              Enter your address or your district to find your councilmember, or <a v-on:click="showEmailForm" href="javascript:void(0)">write an email to the entire City Council.</a>
             </p>
-            <form>
+            <form v-bind:class="emailFormVisible ? 'visible' : 'invisible'">
               <label><span>Your name</span><input ref="constituentName" v-model="constituent.name"/></label>
               <label
                 ><span>Your borough or neighborhood</span><input ref="constituentBorough"
                   v-model="constituent.borough"
               /></label>
+              <button type="button" v-on:click="generateEmail">Generate email</button>
             </form>
-            <button v-on:click="generateEmail">Generate email</button>
             <div class="email-preview" v-bind:class="emailVisible ? 'visible' : 'invisible'">
               <textarea ref="emailCompose"></textarea>
               <button v-on:click="sendMailto">

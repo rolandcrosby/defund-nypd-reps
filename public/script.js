@@ -1,5 +1,5 @@
-if (window.location.protocol === 'http:') {
-  window.location.replace(window.location.href.replace(/^http:/, 'https:'));
+if (window.location.protocol === "http:") {
+  window.location.replace(window.location.href.replace(/^http:/, "https:"));
 }
 
 Vue.filter("capitalize", function(value) {
@@ -47,9 +47,10 @@ const app = new Vue({
     error: null,
     constituent: {
       name: "",
-      borough: "",
+      borough: ""
     },
-    emailVisible: false,
+    showFormOverride: false,
+    emailVisible: false
   },
   created: function() {
     fetch("/sheet")
@@ -74,11 +75,16 @@ const app = new Vue({
         return null;
       }
     },
+    emailFormVisible: function() {
+      return !!(this.member) || this.showFormOverride;
+    },
     memberEmails: function() {
       if (this.member) {
         return this.member.emails.join(",");
       } else {
-        return Object.values(app.byDistrict).flatMap(obj => obj.emails).join(",");
+        return Object.values(app.byDistrict)
+          .flatMap(obj => obj.emails)
+          .join(",");
       }
     }
   },
@@ -100,35 +106,35 @@ const app = new Vue({
         return "";
       }
     },
+    showEmailForm: function() {
+      this.showFormOverride = true;
+    },
     invalidateEmail: function() {
-      this.emailContent = "";
       this.emailVisible = false;
-      if (this.$refs.emailCompose) {
-        this.$refs.emailCompose.value = "";  
-      }
+      this.$refs.emailCompose.value = "";
     },
     generateEmail: function() {
       var valid = true;
       if (this.constituent.name.trim() === "") {
-        this.emailContent = "";
         this.$refs.constituentName.className = "invalid";
         valid = false;
       } else {
         this.$refs.constituentName.className = "";
       }
       if (this.constituent.borough.trim() === "") {
-        this.emailContent = "";
         this.$refs.constituentBorough.className = "invalid";
         valid = false;
       } else {
         this.$refs.constituentBorough.className = "";
       }
       if (!valid) {
+        this.invalidateEmail();
         return;
       }
-      const greeting = this.member ? `Councilmember ${this.member.last_name}` : 'Councilmembers';
-      this.$nextTick(function() {
-        this.$refs.emailCompose.value = `Dear ${greeting},
+      const greeting = this.member
+        ? `Councilmember ${this.member.last_name}`
+        : "Councilmembers";
+      this.$refs.emailCompose.value = `Dear ${greeting},
 
 My name is ${this.constituent.name} and I am a resident of ${this.constituent.borough}. Last April, NYC Mayor Bill De Blasio proposed major budget cuts for the Fiscal Year 2021, especially to education and youth programs, while refusing to slash the NYPD budget. While he's since committed to "reducing" the NYPD budget, it is city council's duty to hold the mayor accountable to his statements, and ensure that the city budget reflects the needs and interests of the New York City community.
 
@@ -140,24 +146,27 @@ It is more clear to me than ever that true community safety comes from investing
 
 Thank you,
 ${this.constituent.name}`;
-      });
       this.emailVisible = true;
     },
     sendMailto: function() {
-      const subject = encodeURIComponent("I'm calling on you to defund the NYPD");
+      const subject = encodeURIComponent(
+        "I'm calling on you to defund the NYPD"
+      );
       const body = encodeURIComponent(this.$refs.emailCompose.value);
       const mailtoUrl = `mailto:${this.memberEmails}?subject=${subject}&body=${body}`;
       window.location = mailtoUrl;
     },
     sendGmail: function() {
-      const subject = encodeURIComponent("I'm calling on you to defund the NYPD");
+      const subject = encodeURIComponent(
+        "I'm calling on you to defund the NYPD"
+      );
       const body = encodeURIComponent(this.$refs.emailCompose.value);
-      const gmailUrl = `https://mail.google.com/mail/?view=cm&fs=1&su=${subject}&body=${body}&to=${this.memberEmails}`
+      const gmailUrl = `https://mail.google.com/mail/?view=cm&fs=1&su=${subject}&body=${body}&to=${this.memberEmails}`;
       window.open(gmailUrl, "_blank");
     }
   }
 });
-  
+
 function setDistrict(d) {
   let parsed = parseInt(d);
   if (!isNaN(d) && d > 0 && d <= 51) {
@@ -233,3 +242,4 @@ async function geocode() {
     app.error = "Sorry, an error occurred while looking up your address.";
   }
 }
+
